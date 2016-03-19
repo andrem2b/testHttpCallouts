@@ -1,0 +1,1 @@
+{ "status_code": 200, "status_txt": "OK", "data": { "long_url": "https://na30.salesforce.com/_ui/common/apex/debug/ApexCSIPage", "url": "http://sforce.co/1L6tlUq", "hash": "1L6tlUq", "global_hash": "1L6tlUr", "new_hash": 0 } }

@@ -1,0 +1,178 @@
+<apex:page showHeader="false" controller="urlShortner" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+<head>
+  <apex:stylesheet value="{!URLFOR($Resource.SLDS100, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+</head>
+
+
+	<script type="text/javascript">
+		var access_token =null;
+		j$ = jQuery.noConflict();
+		function shortenUrl(){
+			if (j$('#url').val().length > 0){
+
+				Visualforce.remoting.Manager.invokeAction(
+				'{!$RemoteAction.urlShortner.obtainNewUrl}',
+				access_token,j$('#url').val(),
+				function(result, event){
+					if (event.status) {
+						// Get DOM IDs for HTML and Visualforce elements like this
+						console.log(result);
+						if (!result.error){
+							j$('#new_url').val(result.results.url);
+							j$('#new_url_Cnt').show();
+						}
+					} else if (event.type === 'exception') {
+						console.log(result);
+					} else {
+
+						console.log(event);
+					}
+				},
+				{escape: true}
+				);
+
+			}
+		}
+
+        function resetForm(){
+            j$('#username').val('');
+            j$('#password').val('');
+            j$('#url').val('');
+            j$('#new_url').val('');
+            displayService('select_container');
+        }
+
+		function logInToBitly(){
+			if (j$('#username').val().length > 0 && j$('#password').val().length > 0){
+
+				Visualforce.remoting.Manager.invokeAction(
+				'{!$RemoteAction.urlShortner.logInToBitly}',
+				j$('#username').val(),j$('#password').val(),
+				function(result, event){
+					if (event.status) {
+						access_token = result.results.token;
+						displayService('service_container');
+					} else if (event.type === 'exception') {
+						console.log(result);
+					} else {
+						console.log(event);
+					}
+				},
+				{escape: true}
+				);
+
+			}
+		}
+
+		var bitlyLogged = false;
+		function displayService(elem){
+
+			j$('.panel').hide();
+			j$('#'+elem).show();
+		}
+		j$(document).ready(function() {
+			j$('.panel').hide();
+
+			j$("#tinyUrl").click(function() {
+				displayService('service_container');
+			});
+
+			j$("#bitlyURL").click(function() {
+				if( access_token == null)
+					displayService('bitly_login');
+				else {
+					displayService('service_container');
+				}
+			});
+            resetForm();
+		});
+
+</script>
+<body>
+
+  <!-- REQUIRED SLDS WRAPPER -->
+  <div class="slds">
+
+
+      <!-- PRIMARY CONTENT WRAPPER -->
+
+    <div id="select_container" class="panel" >
+    	<fieldset class="slds-form-element">
+    		<legend class="form-element__legend slds-form-element__label">Select a service</legend>
+    		<div class="slds-form-element__control">
+    			<label class="slds-radio">
+    				<input type="radio" name="options" id="tinyUrl"/>
+    				<span class="slds-radio--faux"></span>
+    				<span class="slds-form-element__label">Tiny Url</span>
+    			</label>
+    			<label class="slds-radio">
+    				<input type="radio" name="options" id="bitlyURL"/>
+    				<span class="slds-radio--faux"></span>
+    				<span class="slds-form-element__label">Bitly Url</span>
+    			</label>
+    		</div>
+    	</fieldset>
+    </div>
+
+		<div id="service_container" class="panel" >
+
+			<form class="slds-form--inline">
+			    <div class="slds-form-element">
+			      <label class="slds-form-element__label" for="url">Url</label>
+			      <div class="slds-form-element__control">
+			        <input id="url" class="slds-input" type="text" />
+			      </div>
+			    </div>
+			    <div class="slds-form-element">
+			      <button onclick="shortenUrl();" class="slds-button slds-button--brand" type="button">Shorten</button>
+			    </div>
+				<div id= "new_url_Cnt" class="slds-form-element" style="display:none;">
+			      <label class="slds-form-element__label" for="url">New Url</label>
+			      <div class="slds-form-element__control">
+			        <input id="new_url" class="slds-input" type="text" />
+			      </div>
+			    </div>
+
+			    <div class="slds-form-element">
+			      <button onclick="resetForm();" class="slds-button slds-button--brand" type="button">Done</button>
+			    </div>
+			  </form>
+
+
+		</div>
+
+		<!-- Bitly login Form -->
+		<div id="bitly_login"  class="panel" >
+			<form class="slds-form--inline">
+				<div class="slds-form-element">
+					<label class="slds-form-element__label" for="username">Username</label>
+					<div class="slds-form-element__control">
+						<input id="username" class="slds-input" type="text" />
+					</div>
+				</div>
+				<div class="slds-form-element">
+					<label class="slds-form-element__label" for="password">Password</label>
+					<div class="slds-form-element__control">
+						<input id="password" class="slds-input" type="password" />
+					</div>
+				</div>
+				<div class="slds-form-element">
+					<button  onclick="logInToBitly();" class="slds-button slds-button--brand" type="button">LogIn</button>
+				</div>
+			</form>
+		</div>
+
+    <!-- / PRIMARY CONTENT WRAPPER -->
+
+  </div>
+  <!-- / REQUIRED SLDS WRAPPER -->
+
+</body>
+</html>
+</apex:page>
