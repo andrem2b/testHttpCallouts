@@ -26,7 +26,7 @@ private class tinyUrl_handler_test {
 		// Set mock callout class
 		Test.setMock(HttpCalloutMock.class, myMock);
 
-	    String shortUrl = tinyUrl_handler.getNewUrl('www.this_is_long_long_long_long_long_long_long_long_url');
+		String shortUrl = tinyUrl_handler.getNewUrl('www.this_is_long_long_long_long_long_long_long_long_url');
 
 		System.assertEquals(theShortOne,shortUrl);
 	}

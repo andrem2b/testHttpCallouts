@@ -10,7 +10,7 @@ public class tinyUrl_multi_httpMock implements HttpCalloutMock {
 		if (mock != null) {
 			return mock.respond(req);
 		} else {
-    			throw new urlShortner.CustomException('HTTP callout not supported for test methods');
+			throw new urlShortner.CustomException('HTTP callout not supported for test methods');
 		}
 	}
 

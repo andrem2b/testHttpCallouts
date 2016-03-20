@@ -1,6 +1,5 @@
 global with sharing class urlShortner {
 
-
 	@RemoteAction
 	global static Object getAvailableServices() {
 		return new Map<String,String>{

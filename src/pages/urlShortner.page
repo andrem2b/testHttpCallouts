@@ -2,12 +2,10 @@
 
 <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 
-<head>
-  <apex:stylesheet value="{!URLFOR($Resource.SLDS100, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
-
-
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
-</head>
+	<head>
+		<apex:stylesheet value="{!URLFOR($Resource.SLDS100, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+	</head>
 
 
 	<script type="text/javascript">
@@ -90,88 +88,92 @@
 					displayService('service_container');
 				}
 			});
-            resetForm();
+			resetForm();
 		});
 
 </script>
 <body>
 
-  <!-- REQUIRED SLDS WRAPPER -->
-  <div class="slds">
+	<!-- REQUIRED SLDS WRAPPER -->
+	<div class="slds">
 
 
-      <!-- PRIMARY CONTENT WRAPPER -->
+		<!-- PRIMARY CONTENT WRAPPER -->
 
-    <div id="select_container" class="panel" >
-    	<fieldset class="slds-form-element">
-    		<legend class="form-element__legend slds-form-element__label">Select a service</legend>
-    		<div class="slds-form-element__control">
-    			<label class="slds-radio">
-    				<input type="radio" name="options" id="tinyUrl"/>
-    				<span class="slds-radio--faux"></span>
-    				<span class="slds-form-element__label">Tiny Url</span>
-    			</label>
-    			<label class="slds-radio">
-    				<input type="radio" name="options" id="bitlyURL"/>
-    				<span class="slds-radio--faux"></span>
-    				<span class="slds-form-element__label">Bitly Url</span>
-    			</label>
-    		</div>
-    	</fieldset>
-    </div>
+	<div id="select_container" class="panel" >
+		<fieldset class="slds-form-element">
+			<legend class="form-element__legend slds-form-element__label">Select a service</legend>
+			<div class="slds-form-element__control">
+				<label class="slds-radio">
+					<input type="radio" name="options" id="tinyUrl"/>
+					<span class="slds-radio--faux"></span>
+					<span class="slds-form-element__label">Tiny Url</span>
+				</label>
+				<label class="slds-radio">
+					<input type="radio" name="options" id="bitlyURL"/>
+					<span class="slds-radio--faux"></span>
+					<span class="slds-form-element__label">Bitly Url</span>
+				</label>
+			</div>
+		</fieldset>
+	</div>
 
-		<div id="service_container" class="panel" >
+	<div id="service_container" class="panel" >
 
-			<form class="slds-form--inline">
-			    <div class="slds-form-element">
-			      <label class="slds-form-element__label" for="url">Url</label>
-			      <div class="slds-form-element__control">
-			        <input id="url" class="slds-input" type="text" />
-			      </div>
-			    </div>
-			    <div class="slds-form-element">
-			      <button onclick="shortenUrl();" class="slds-button slds-button--brand" type="button">Shorten</button>
-			    </div>
-				<div id= "new_url_Cnt" class="slds-form-element" style="display:none;">
-			      <label class="slds-form-element__label" for="url">New Url</label>
-			      <div class="slds-form-element__control">
-			        <input id="new_url" class="slds-input" type="text" />
-			      </div>
-			    </div>
-
-			    <div class="slds-form-element">
-			      <button onclick="resetForm();" class="slds-button slds-button--brand" type="button">Done</button>
-			    </div>
-			  </form>
-
-
-		</div>
-
-		<!-- Bitly login Form -->
-		<div id="bitly_login"  class="panel" >
-			<form class="slds-form--inline">
-				<div class="slds-form-element">
-					<label class="slds-form-element__label" for="username">Username</label>
-					<div class="slds-form-element__control">
-						<input id="username" class="slds-input" type="text" />
-					</div>
+		<form class="slds-form--inline">
+			<div class="slds-form-element">
+				<label class="slds-form-element__label" for="url">Url</label>
+				<div class="slds-form-element__control">
+					<input id="url" class="slds-input" type="text" />
 				</div>
-				<div class="slds-form-element">
-					<label class="slds-form-element__label" for="password">Password</label>
-					<div class="slds-form-element__control">
-						<input id="password" class="slds-input" type="password" />
-					</div>
+			</div>
+			<div class="slds-form-element">
+				<button onclick="shortenUrl();" class="slds-button slds-button--brand" type="button">
+					Shorten
+				</button>
+			</div>
+			<div id= "new_url_Cnt" class="slds-form-element" style="display:none;">
+				<label class="slds-form-element__label" for="url">New Url</label>
+				<div class="slds-form-element__control">
+					<input id="new_url" class="slds-input" type="text" />
 				</div>
-				<div class="slds-form-element">
-					<button  onclick="logInToBitly();" class="slds-button slds-button--brand" type="button">LogIn</button>
+			</div>
+
+			<div class="slds-form-element">
+				<button onclick="resetForm();" class="slds-button slds-button--brand" type="button">
+					Done
+				</button>
+			</div>
+		</form>
+	</div>
+
+	<!-- Bitly login Form -->
+	<div id="bitly_login"  class="panel" >
+		<form class="slds-form--inline">
+			<div class="slds-form-element">
+				<label class="slds-form-element__label" for="username">Username</label>
+				<div class="slds-form-element__control">
+					<input id="username" class="slds-input" type="text" />
 				</div>
-			</form>
-		</div>
+			</div>
+			<div class="slds-form-element">
+				<label class="slds-form-element__label" for="password">Password</label>
+				<div class="slds-form-element__control">
+					<input id="password" class="slds-input" type="password" />
+				</div>
+			</div>
+			<div class="slds-form-element">
+				<button  onclick="logInToBitly();" class="slds-button slds-button--brand" type="button">
+					LogIn
+				</button>
+			</div>
+		</form>
+	</div>
 
-    <!-- / PRIMARY CONTENT WRAPPER -->
+<!-- / PRIMARY CONTENT WRAPPER -->
 
-  </div>
-  <!-- / REQUIRED SLDS WRAPPER -->
+</div>
+<!-- / REQUIRED SLDS WRAPPER -->
 
 </body>
 </html>

@@ -20,13 +20,12 @@ public with sharing class tinyUrl_handler {
 		// Parse the JSON response
 		if (response.getStatusCode() != 200) {
 			throw new urlShortner.CustomException('The status code returned was not expected: ' +
-		        response.getStatusCode() + ' ' + response.getStatus());
+						response.getStatusCode() + ' ' + response.getStatus());
 
 		} else {
-		    System.debug(response.getBody());
+			System.debug(response.getBody());
 			outUrl = response.getBody();
 		}
-
 
 		return outUrl;
 	}
