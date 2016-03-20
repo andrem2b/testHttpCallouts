@@ -43,25 +43,25 @@ public with sharing class bitly_handler {
 
 		Http h = new Http();
 
-        HttpRequest req = new HttpRequest();
-        req.setEndpoint(BITLY_SERVICE_URL+access_token+'&longUrl=' + inUrl);
-        req.setMethod('GET');
+		HttpRequest req = new HttpRequest();
+		req.setEndpoint(BITLY_SERVICE_URL+access_token+'&longUrl=' + inUrl);
+		req.setMethod('GET');
 		req.setHeader('Accept', 'application/json');
 
-        HttpResponse res = h.send(req);
+		HttpResponse res = h.send(req);
 		System.debug('\n res '+String.valueOf(res.getBody()));
 
 		System.debug(res.getBody());
-        if (  200 == res.getStatusCode()){
-            Map<String, Object> source = (Map<String, Object>) JSON.deserializeUntyped(res.getBody());
-            if (source.containsKey('data')){
-                Object d= source.get('data');
+		if (  200 == res.getStatusCode()){
+			Map<String, Object> source = (Map<String, Object>) JSON.deserializeUntyped(res.getBody());
+			if (source.containsKey('data')){
+				Object d= source.get('data');
  				Map<String, Object>  data=(Map<String, Object>)source.get('data');
 				if (data.containsKey('url')){
 					result = String.valueOf(data.get('url'));
 				}
-            }
-        }
+			}
+		}
 
 		return result;
 	}
